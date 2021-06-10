@@ -6,16 +6,16 @@
         <img src="../assets/logo.png" alt="">
       </div>
       <!--   登录表单   -->
-      <el-form :model="loginForm" label-width="0px" class="login_form">
-        <el-form-item>
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
+        <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="password">
           <el-input v-model="loginForm.password" prefix-icon="iconfont icon-3702mima" type="password"></el-input>
         </el-form-item>
         <el-form-item class="btns">
-          <el-button type="primary">登录</el-button>
-          <el-button type="info">重置</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
+          <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -29,7 +29,47 @@ export default {
       loginForm: {
         username: null,
         password: null
+      },
+      loginFormRules: {
+        username: [
+          {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur'
+          },
+          {
+            min: 1,
+            max: 10,
+            message: '用户名长度在1~10个字符之间',
+            trigger: 'blur'
+          }
+        ],
+        password: [{
+          required: true,
+          message: '请输入密码',
+          trigger: 'blur'
+        },
+        {
+          min: 6,
+          max: 15,
+          message: '密码长度在6~15个字符之间',
+          trigger: 'blur'
+        }]
       }
+    }
+  },
+  methods: {
+    resetLoginForm () {
+      this.$refs.loginFormRef.resetFields()
+    },
+    login () {
+      this.$refs.loginFormRef.validate(async valid => {
+        if (!valid) return
+        const { data: res } = await this.$http.post('/login', this.loginForm)
+        const { retCode, retMsg, data } = res
+        if (retCode !== 200) { return console.log(retMsg) }
+        console.log(data)
+      })
     }
   }
 }
