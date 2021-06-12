@@ -24,6 +24,7 @@
 
 <script>
 export default {
+  name: 'Login',
   data () {
     return {
       loginForm: {
@@ -67,8 +68,11 @@ export default {
         if (!valid) return
         const { data: res } = await this.$http.post('/login', this.loginForm)
         const { retCode, retMsg, data } = res
-        if (retCode !== 200) { return console.log(retMsg) }
-        console.log(data)
+        if (retCode !== 200) return this.$msg.error(retMsg)
+        this.$msg.success('登录成功')
+        const { jsessionid } = data
+        window.sessionStorage.setItem('jsessionid', jsessionid)
+        await this.$router.push('/home')
       })
     }
   }
