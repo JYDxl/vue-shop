@@ -3,10 +3,10 @@
     <div class="login_box">
       <!--   头部区域   -->
       <div class="avatar_box">
-        <img src="../assets/logo.png" alt="">
+        <img alt="" src="../assets/logo.png">
       </div>
       <!--   登录表单   -->
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
+      <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" class="login_form" label-width="0px">
         <el-form-item prop="username">
           <el-input v-model="loginForm.username" prefix-icon="iconfont icon-user"></el-input>
         </el-form-item>
@@ -70,8 +70,7 @@ export default {
         const { retCode, retMsg, data } = res
         if (retCode !== 200) return this.$msg.error(retMsg)
         this.$msg.success('登录成功')
-        const { jsessionid } = data
-        window.sessionStorage.setItem('jsessionid', jsessionid)
+        window.sessionStorage.setItem('jsessionid', data)
         await this.$router.push('/home')
       })
     }
