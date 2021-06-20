@@ -8,9 +8,13 @@
 export default {
   name: 'Home',
   methods: {
-    logout () {
+    async logout () {
+      const { data: res } = await this.$http.post(`/logout?jsessionid=${window.sessionStorage.getItem('jsessionid')}`)
+      const { retCode, retMsg } = res
+      if (retCode !== 200) return this.$msg.error(retMsg)
+      this.$msg.success(retMsg)
       window.sessionStorage.clear()
-      this.$router.push('/login')
+      await this.$router.push('/login')
     }
   }
 }
