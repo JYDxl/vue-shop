@@ -6,7 +6,7 @@ import './assets/fonts/iconfont.css'
 import './assets/css/global.css'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://ubuntu/backend/shop'
+axios.defaults.baseURL = 'http://ubuntu/gateway/shop'
 // noinspection JSUnusedGlobalSymbols
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
