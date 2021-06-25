@@ -38,7 +38,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
-  const jsessionid = window.sessionStorage.getItem('jsessionid')
+  const jsessionid = window.sessionStorage.getItem('JSESSIONID')
   if (!jsessionid) return next('/login')
   next()
 })

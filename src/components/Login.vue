@@ -70,7 +70,7 @@ export default {
         const { retCode, retMsg, data } = res
         if (retCode !== 200) return this.$msg.error(retMsg)
         this.$msg.success('登录成功')
-        window.sessionStorage.setItem('jsessionid', data)
+        window.sessionStorage.setItem('JSESSIONID', data)
         await this.$router.push('/home')
       })
     }

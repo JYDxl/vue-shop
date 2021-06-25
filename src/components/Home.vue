@@ -9,7 +9,7 @@ export default {
   name: 'Home',
   methods: {
     async logout () {
-      const { data: res } = await this.$http.post(`/logout?jsessionid=${window.sessionStorage.getItem('jsessionid')}`)
+      const { data: res } = await this.$http.post(`/logout?JSESSIONID=${window.sessionStorage.getItem('JSESSIONID')}`)
       const { retCode, retMsg } = res
       if (retCode !== 200) return this.$msg.error(retMsg)
       this.$msg.success(retMsg)
